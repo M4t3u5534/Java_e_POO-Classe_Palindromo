@@ -8,8 +8,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        //Criação da variável para verificar o texto digitado para continuar ou encerrar o programa.
         String verificacao = "";
+        //Lopp que verifica e encerra o programa caso o usuário digite:/sair.
         while(true){
+            //Input e criação do objeto texto da classe palíndromo.
             System.out.println("Informe um texto qualquer:");
             verificacao = scanner.nextLine();
             if(verificacao.equals("/sair"))
