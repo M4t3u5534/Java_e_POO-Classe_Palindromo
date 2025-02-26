@@ -25,11 +25,57 @@ class Palindromo {
     }
 
     public boolean verificar(){
-        String[] frase = texto.trim().split("");
+        char[] frase = otimizar();
         for(int i=0;i<frase.length/2;i++){
-            if(!frase[i].equalsIgnoreCase(frase[frase.length - 1 - i]))
+            if(frase[i] != frase[frase.length - 2 - i])
                 return false;
         }
         return true;
+    }
+
+    private char[] otimizar(){
+        texto = texto.toUpperCase();
+        texto = texto.replaceAll(" ","");
+        char[] frase = texto.toCharArray();
+        char[] digitos = new char[frase.length];
+        int indice=0;
+        for(int i=0;i<frase.length;i++){
+            if((int) frase[i] < 65)
+                continue;
+            else{
+                digitos[indice] = frase[i];
+                indice++;
+            }
+        }
+        char[] acentos = {'Ç','Ä','Å','Á','Â','À','Ã','É','Ê','Ë','È','Í','Î','Ï','Ö','Ó','Ô','Ò','Õ','Ü','Ú','Û','Ù','Ñ','Ý'};
+        for(int i=0;i<digitos.length;i++){
+            for(int j=0;j<acentos.length;j++){
+                if(digitos[i] == acentos[j]){
+                    if(j==1)
+                        digitos[i] = 'C';
+                    else
+                        if(j<7)
+                            digitos[i] = 'A';
+                        else
+                            if(j<11)
+                                digitos[i] = 'E';
+                            else
+                                if(j<15)
+                                    digitos[i] = 'I';
+                                else
+                                    if(j<21)
+                                        digitos[i] = 'O';
+                                    else
+                                        if(j<25)
+                                            digitos[i] = 'U';
+                                        else
+                                            if(j==25)
+                                                digitos[i] = 'N';
+                                            else
+                                                digitos[i] = 'Y';
+                }
+            }
+        }
+        return digitos;
     }
 }
