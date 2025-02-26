@@ -1,6 +1,7 @@
 //NOME: Mateus Ribeiro Cerqueira
 //RA: 10443901
 //REFERÊNCIAS: https://www.guj.com.br/t/tirando-espacos-em-branco-com-metodo-trim/45589
+//             https://www.alura.com.br/artigos/trocando-caracteres-de-uma-string-no-java#:~:text=M%C3%A9todo%20replaceAll(),que%20passarmos%20por%20outro%20caractere.
 
 class Palindromo {
     private String texto;
@@ -26,8 +27,11 @@ class Palindromo {
 
     public boolean verificar(){
         char[] frase = otimizar();
+        int pontuacao = 1 + frase[frase.length - 1];
+        if(pontuacao >= frase.length)
+            pontuacao = 1;
         for(int i=0;i<frase.length/2;i++){
-            if(frase[i] != frase[frase.length - 2 - i])
+            if(frase[i] != frase[frase.length - i - pontuacao])
                 return false;
         }
         return true;
@@ -39,14 +43,19 @@ class Palindromo {
         char[] frase = texto.toCharArray();
         char[] digitos = new char[frase.length];
         int indice=0;
+        int pontuacao=0;
         for(int i=0;i<frase.length;i++){
-            if((int) frase[i] < 65)
+            if((int) frase[i] < 65){
+                pontuacao++;
                 continue;
+            }
             else{
                 digitos[indice] = frase[i];
                 indice++;
             }
         }
+        if(pontuacao>0)
+            digitos[indice] = (char) pontuacao;
         char[] acentos = {'Ç','Ä','Å','Á','Â','À','Ã','É','Ê','Ë','È','Í','Î','Ï','Ö','Ó','Ô','Ò','Õ','Ü','Ú','Û','Ù','Ñ','Ý'};
         for(int i=0;i<digitos.length;i++){
             for(int j=0;j<acentos.length;j++){
